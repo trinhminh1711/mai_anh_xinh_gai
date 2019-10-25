@@ -1,0 +1,103 @@
+Phân biệt giống và khác nhau giữa json và object 
+{
+  - object là một đối tượng trong js;
+  -json dùng để trao đổi dữ liệu từ client đến sever hoặc ngược lại;
+  -json chỉ chứa các properties , không chứa phương thức;
+  vd:
+  {
+          var req = new XMLHttpRequest();   // tạo đối tượng (XMLHttp)
+          req.open("GET", "https://httpbin.org/get", false); // sử dụng ( get) để lấy dữ liệu , địa chỉ trang và trạng thái false là xử lý đồng bộ )
+          req.send(null);
+          console.log(req.status); //  200 : request thành công
+          console.log(req.responseText) sever trả về các thông tin dưới dạng json
+    }
+    
+        lệnh cơ bản để request dữ liệu từ sever 
+        
+        kết quả trả về
+        {     
+              200
+            {
+              "args": {},
+              "headers": {
+                "Accept": "*/*",
+                "Accept-Encoding": "gzip, deflate, br",
+                "Accept-Language": "en-US,en;q=0.8,vi;q=0.6",
+                "Connection": "close",
+                "Host": "httpbin.org",
+                "Origin": "null",
+                "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1"
+              },
+              "origin": "183.81.50.73",
+              "url": "https://httpbin.org/get"
+            }
+        }
+          == tóm lại : chúng ta hiểu object của javaScript còn sever sẽ sử dụng json để xử lý thông tin ( vd nhưng form người dùng gửi sẽ đc lưu 
+  vào sever theo cú pháp json==
+  
+  
+  
+  
+  
+  promise : 
+    1 callback() : là một hàm để quản lý việc bất đồng bộ của js. 
+            js không chạy theo từng hàm theo thứ tự mà trong lúc chờ n có thể xử lý các hàm khác ;
+            call back() giúp báo hiệu khi nào xong và thực hiện công việc tiếp theo được gọi trong callback();
+            khi có quá nhiều hàm và công việc bất đồng bộ xảy ra, ta phải dùng các callback lồng vào nhau để chỉ ra con đường thứ tự duy nhất 
+            dẫn chương trình theo hướng đồng bộ , đó là callback hell
+    2 promise() : là một hàm để quản lý việc bất đồng bộ của js
+    vd 
+                if (window.Promise) { // kiểm tra xem trình duyệt có hỗ trợ promise không, nếu trả về true thì
+              var promise = new Promise(function(resolve, reject) { bắt đầu khởi tạo đối tượng
+                
+              });
+            }
+           sau khi code trong hàm thực hiện xong nếu thành công thì resolve sẽ được gọi
+            ngược lại reject sẽ được gọi
+            
+            
+          mở rộng :
+          if (window.Promise) {
+  console.log('Promise found');
+
+  var promise = new Promise(function(resolve, reject) {
+    var request = new XMLHttpRequest();
+
+    request.open('GET', 'http://api.icndb.com/jokes/random');
+    request.onload = function() {
+      if (request.status == 200) {
+        resolve(request.response); // hàm resolve sẽ được gọi với tham số truyền vào là dữ liệu sever gửi về
+      } else {
+        reject(Error(request.statusText)); // nếu request status != 200 thì làm reject được gọi với tham số lỗi là status sever
+        
+      }
+    };
+
+    request.onerror = function() {
+      reject(Error('Error fetching data.')); // error occurred, reject the  Promise
+    };
+
+    request.send(); //send the request
+  });
+
+  console.log('Asynchronous request made.');
+
+  promise.then(function(data) {// promise then sẽ có 2 hàm callback 1: data là khi promise trên được thực hiện
+    console.log('Got data! Promise fulfilled.');
+    document.getElementsByTagName('body')[0].textContent = JSON.parse(data).value.joke; // cho ra dữ liệu dưới object từ 1 chuỗi json
+  }, function(error) {   // callback sẽ thực hiện khi promise trên bị lỗi
+    console.log('Promise rejected.');
+    console.log(error.message);
+  });
+} else {
+  console.log('Promise not available');  // 
+}
+            
+            promise nối nhau
+            vd
+            promise.then(function(result) {
+              //chúng ta có dữ liệu của url 'some url here' ở đây
+              return getPromise(result); //và trả về một promise khác
+            }).then(function(result) {
+              //ở đây chứa kết quả promise vừa trả về ở trên và logic để xử lý dữ liệu cuối cùng
+            });
