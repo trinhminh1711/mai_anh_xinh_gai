@@ -101,3 +101,45 @@ Phân biệt giống và khác nhau giữa json và object
             }).then(function(result) {
               //ở đây chứa kết quả promise vừa trả về ở trên và logic để xử lý dữ liệu cuối cùng
             });
+            
+            
+            
+    ES6 :
+      Arrow function: Bạn có thể tạo hàm bằng cách sử dụng dấu mũi tên =>.
+        VD : 
+        var functionName = (var1, var2) => {
+              // Nội dung function
+          };
+      Block Scoped: Định nghĩa biến với từ khóa let, cách định nghĩa này thì biến chỉ tồn tại trong phạm vi khối của nó (Block Scope)
+          for (let i = 0; i < 5; i++) {
+           setTimeout(function(){
+              console.log('hello ', i);
+           }, 1000);
+        }
+      Destructuring Assignments: Bạn có thể khởi tạo các biến từ một mảng bằng một dòng code đơn giản.
+     cho 1 mảng    var introduction = ["Hello", "I" , "am", "Sarah"];
+     
+            var [greeting, pronoun] = ["Hello", "I" , "am", "Sarah"];   
+            console.log(greeting);//"Hello"
+            console.log(pronoun);//"I"
+            
+                  var [greeting,,, pronoun] = ["Hello", "I" , "am", "Sarah"];   
+            console.log(greeting);//"Hello"
+            console.log(pronoun);//"Sarah"
+            
+                        var [greeting,... pronoun] = ["Hello", "I" , "am", "Sarah"];   
+            console.log(greeting);//"Hello"
+            console.log(pronoun);//"I" , "am", "Sarah"
+            
+            
+      Default Parameters: Bạn có thể gán giá trị mặc định cho các tham số.
+      Template String: Tạo templaet HTML cực kì đơn giản
+      Giúp chèn các biểu thức ngay trong string 
+      vd let intro = "Hello everyone, I'm";
+        let firstName = 'Lam';
+        let lastName = 'Pham';
+
+        let full3 = `${intro} ${firstName} ${lastName}.`;
+        console.log(full3);
+        // => Hello everyone, I'm Lam Pham.
+      Weak, Set: các kiểu dữ liệu phức tạp mới
